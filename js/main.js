@@ -75,4 +75,15 @@ for(let i = 0; i < thumbnailsAll.length; i++){
         prevNextFn('thumbnails', i);
     });
 }
-setInterval(prevNextFn, 3000);
+//Intervallo
+const interval = 3000;
+let set = setInterval(prevNextFn, interval);
+const start = document.getElementById('start');
+const stop = document.getElementById('stop');
+start.addEventListener('click', function(){
+    clearInterval(set);
+    set = setInterval(prevNextFn, interval);
+});
+stop.addEventListener('click', function(){
+    clearInterval(set);
+});
