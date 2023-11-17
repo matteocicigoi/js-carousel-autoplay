@@ -1,5 +1,26 @@
 'use strict';
-
+/* Funzioni */
+function prevNextFn(type, i = false){
+    itemAll[currentImg].classList.remove('active');
+    boxAll[currentImg].classList.remove('active');
+    if(type === 'prev'){
+        if(currentImg > 0){
+            currentImg--;
+        }else{
+            currentImg = img.length - 1;
+        }
+    }else if(type === 'thumbnails'){
+        currentImg = i;
+    }else{
+        if(currentImg < img.length - 1){
+            currentImg++;
+        }else{
+            currentImg = 0;
+        }
+    }
+    itemAll[currentImg].classList.add('active');
+    boxAll[currentImg].classList.add('active');
+}
 //elementi dal dom
 const items = document.querySelector('.items');
 const thumbnails = document.querySelector('.thumbnails');
@@ -37,28 +58,12 @@ const next = document.querySelector('.next');
 
 //immagine precedente
 prev.addEventListener('click', function(){
-    itemAll[currentImg].classList.remove('active');
-    boxAll[currentImg].classList.remove('active');
-    if(currentImg > 0){
-        currentImg--;
-    }else{
-        currentImg = img.length - 1;
-    }
-    itemAll[currentImg].classList.add('active');
-    boxAll[currentImg].classList.add('active');
+    prevNextFn('prev');
 });
 
 //immagine successiva
 next.addEventListener('click', function(){
-    itemAll[currentImg].classList.remove('active');
-    boxAll[currentImg].classList.remove('active');
-    if(currentImg < img.length - 1){
-        currentImg++;
-    }else{
-        currentImg = 0;
-    }
-    itemAll[currentImg].classList.add('active');
-    boxAll[currentImg].classList.add('active');
+    prevNextFn('next');
 });
 
 //thumbnails
@@ -67,10 +72,7 @@ const thumbnailsAll = document.querySelectorAll('.box');
 //tutti i  box
 for(let i = 0; i < thumbnailsAll.length; i++){
     thumbnailsAll[i].addEventListener('click', function(){
-        itemAll[currentImg].classList.remove('active');
-        boxAll[currentImg].classList.remove('active');
-        currentImg = i;
-        itemAll[currentImg].classList.add('active');
-        boxAll[currentImg].classList.add('active');
+        prevNextFn('thumbnails', i);
     });
 }
+setInterval(prevNextFn, 3000);
